@@ -1,12 +1,10 @@
 import java.io.*;
-import java.sql.SQLOutput;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Minesweeper {
     public static void main(final String[] theArgs) {
         int x = 1;
-        String input = "";
+        String input;
         String after;
         try {
             FileInputStream fis = new FileInputStream("minesweeper_input.txt");
