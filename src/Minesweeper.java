@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -13,6 +10,7 @@ public class Minesweeper {
         String after;
         try {
             FileInputStream fis = new FileInputStream("minesweeper_input.txt");
+            FileWriter myWriter = new FileWriter("minesweeper_output.txt");
             Scanner scan = new Scanner(fis);
 
             while (scan.hasNextLine()) {
@@ -20,15 +18,20 @@ public class Minesweeper {
 
                 // scan the first line
                 if (input.matches("0 0")) {
-                    System.out.println();
+//                    System.out.println();
+                    myWriter.write("\n");
                 } else if (input.matches(".*\\d.*")) {
-                    System.out.println("Field #" + x++ + ":");
+//                    System.out.println("Field #" + x++ + ":");
+                    myWriter.write("Field #" + x++ + ":\n");
                 } else {
 //                    after = input.replace('.', '?');
                     after = input;
-                    System.out.println(after);
+//                    System.out.println(after);
+                    myWriter.write(after + "\n");
                 }
             }
+
+            myWriter.close();
 
         } catch (IOException e) {
             e.printStackTrace();
