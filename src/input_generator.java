@@ -26,6 +26,7 @@ public class input_generator {
                 // Print this into file
                 myWriter.write(rows + " " + cols + "\n");
 
+
                 for (int row = 0; row < rows; row++) {
                     for (int col = 0; col < cols; col++) {
                         if (Math.random() < minePercent) {
