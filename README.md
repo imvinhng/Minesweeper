@@ -3,6 +3,11 @@ First TCSS 360 Group Project
 
 This is my personal submission, along with the group submission in the other repo.
 
+The program is created to be run from the Command Prompt (cmd), with minesweeper_input.txt as the first argument, and minesweeper_output.txt as the second argument.
+The minesweeper_input file contains raw data generated from Mine_InGen project, and minesweeper_output.txt is the hints converted by the program as the output.
+
+The program could be converted to work using the console.
+
 Our group:
 Vince T Nguyen
 Foziya Husen
