@@ -3,6 +3,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Individual solution for Group Assignment 1.
+ * @author vnguye3
+ */
 public class Minesweeper {
     public static void main(final String[] theArgs) {
         int row = 0;
@@ -13,8 +17,10 @@ public class Minesweeper {
         int cols = 0;
         char[][] matrix = new char[rows][cols];
         try {
-            FileInputStream fis = new FileInputStream("minesweeper_input.txt");
-            FileWriter myWriter = new FileWriter("minesweeper_output.txt");
+//            FileInputStream fis = new FileInputStream("minesweeper_input.txt");
+            FileInputStream fis = new FileInputStream(theArgs[0]);
+//            FileWriter myWriter = new FileWriter("minesweeper_output.txt");
+            FileWriter myWriter = new FileWriter(theArgs[1]);
             Scanner scan = new Scanner(fis);
 
             while (scan.hasNextLine()) {
@@ -27,8 +33,11 @@ public class Minesweeper {
                 } else if (input.matches(".*\\d.*")) {
 
                     // converting char to int
-                    rows = Character.getNumericValue(input.charAt(0));
-                    cols = Character.getNumericValue(input.charAt(2));
+                    String delims = "[ ]+";
+                    String[] tokens = input.split(delims);
+
+                    rows = Integer.parseInt(tokens[0]);
+                    cols = Integer.parseInt(tokens[1]);
 
                     row = 0;
 
@@ -44,13 +53,11 @@ public class Minesweeper {
                     row++;
 
                     if (row == rows) {
-//                        System.out.println("Field #" + x++ + ":");
 
                         // convert char matrix into int matrix
                         String[][] finalMatrix = checkMines(matrix);
 
                         // print matrix into output file
-
                         myWriter.write(printStringMatrix(finalMatrix));
 
 
@@ -75,7 +82,7 @@ public class Minesweeper {
      */
     public static String[][] checkMines(final char[][] theMatrix) {
         int rows = theMatrix.length;
-        int cols = theMatrix[1].length;
+        int cols = theMatrix[0].length;
         int mineCount, backRow, frontRow, backCol, frontCol;
 
         String[][] finalMatrix = new String[rows][cols];
@@ -134,7 +141,7 @@ public class Minesweeper {
          */
         public static void printCharMatrix (char[][] theMatrix){
             for (char[] matrix : theMatrix) {
-                for (int j = 0; j < theMatrix[1].length; j++) {
+                for (int j = 0; j < theMatrix[0].length; j++) {
                     System.out.print(matrix[j]);
                 }
                 System.out.println();
@@ -149,7 +156,7 @@ public class Minesweeper {
             StringBuilder sb = new StringBuilder();
 
             for (String[] matrix : theMatrix) {
-                for (int j = 0; j < theMatrix[1].length; j++) {
+                for (int j = 0; j < theMatrix[0].length; j++) {
                     sb.append(matrix[j]);
                 }
                 sb.append("\n");
