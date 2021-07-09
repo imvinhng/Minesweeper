@@ -1,6 +1,3 @@
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -8,71 +5,72 @@ import java.util.Scanner;
  * @author vnguye3
  */
 public class Minesweeper {
+    private static Scanner scan;
+    private static char[][] matrix;
+
     public static void main(final String[] theArgs) {
-        int row = 0;
-        int col;
-        int x = 1;
-        String input;
-        int rows = 0;
+
+        scan = new Scanner(System.in);
+
+        start();
+    }
+
+    /**
+     * This method generates output through System.out.
+     *
+     * User can redirect the output to a text file if needed
+     * using cmd prompt
+     * @theScanner text file Scanner
+     */
+    public static void start() {
         int cols = 0;
-        char[][] matrix = new char[rows][cols];
-        try {
-//            FileInputStream fis = new FileInputStream("minesweeper_input.txt");
-            FileInputStream fis = new FileInputStream(theArgs[0]);
-//            FileWriter myWriter = new FileWriter("minesweeper_output.txt");
-            FileWriter myWriter = new FileWriter(theArgs[1]);
-            Scanner scan = new Scanner(fis);
+        int rows = 0;
+        int row = 0;
+        int x = 1;
 
-            while (scan.hasNextLine()) {
-                input = scan.nextLine();
+        while (scan.hasNextLine()) {
+            String input = scan.nextLine();
 
-                // scan the first line
-                if (input.matches("0 0")) {
+            // scan the first line
+            if (input.matches("0 0")) {
 
-                    myWriter.write("\n");
-                } else if (input.matches(".*\\d.*")) {
+                System.out.println();
 
-                    // converting char to int
-                    String delims = "[ ]+";
-                    String[] tokens = input.split(delims);
+            } else if (input.matches(".*\\d.*")) {
 
-                    rows = Integer.parseInt(tokens[0]);
-                    cols = Integer.parseInt(tokens[1]);
+                // converting char to int
+                String delims = "[ ]+";
+                String[] tokens = input.split(delims);
 
-                    row = 0;
+                rows = Integer.parseInt(tokens[0]);
+                cols = Integer.parseInt(tokens[1]);
 
-                    matrix = new char[rows][cols]; // testing
+                row = 0;
 
-                    myWriter.write("Field #" + x++ + ":\n");
+                matrix = new char[rows][cols]; // testing
 
-                } else {
-                    for (col = 0; col < cols; col++) {
-                        matrix[row][col] = input.charAt(col);
-                    }
+                System.out.println("Field #" + x++ + ":");
 
-                    row++;
+            } else {
+                for (int col = 0; col < cols; col++) {
+                    matrix[row][col] = input.charAt(col);
+                }
 
-                    if (row == rows) {
+                row++;
 
-                        // convert char matrix into int matrix
-                        String[][] finalMatrix = checkMines(matrix);
+                if (row == rows) {
 
-                        // print matrix into output file
-                        myWriter.write(printStringMatrix(finalMatrix));
+                    // convert char matrix into int matrix
+                    String[][] finalMatrix = checkMines(matrix);
 
-
-                    }
-
+                    // print matrix into output file
+                    System.out.print(printStringMatrix(finalMatrix));
+                    System.out.println("I was here");
                 }
             }
-
-            myWriter.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
     }
+
 
     /**
      * Convert char 2d array into String 2d array.
@@ -136,19 +134,6 @@ public class Minesweeper {
 
 
         /**
-         * Temporary method to print char 2d array.
-         * @param theMatrix the input
-         */
-        public static void printCharMatrix (char[][] theMatrix){
-            for (char[] matrix : theMatrix) {
-                for (int j = 0; j < theMatrix[0].length; j++) {
-                    System.out.print(matrix[j]);
-                }
-                System.out.println();
-            }
-        }
-
-        /**
          * Temporary method to print string 2d array
          * @param theMatrix the input
          */
@@ -165,6 +150,7 @@ public class Minesweeper {
 
             return sb.toString();
         }
+
 }
 
 
